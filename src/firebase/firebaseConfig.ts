@@ -1,15 +1,9 @@
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth"
-import { getFirestore } from "firebase/firestore"
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage"
 
 const firebaseConfig = {
-    // apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-    // authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-    // projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-    // storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-    // messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-    // appId: import.meta.env.VITE_FIREBASE_APP_ID,
     apiKey: "AIzaSyBFg2oE-jeY_Trz11X7NApccNf03lQHTy4",
     authDomain: "react-ecommerce-app-df71f.firebaseapp.com",
     projectId: "react-ecommerce-app-df71f",
@@ -17,12 +11,12 @@ const firebaseConfig = {
     messagingSenderId: "95618695358",
     appId: "1:95618695358:web:297a1fac32539b927fdeef",
     measurementId: "G-4DZ45EB636"
-}
+};
 
 const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
 export const db = getFirestore(app);
-export const storage = getStorage(app);
+export const storage = getStorage(app)
 
-export default app
+export default app;

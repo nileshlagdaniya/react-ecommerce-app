@@ -1,27 +1,16 @@
-import React from "react";
-import { useAuth } from "../features/auth/useAuth";
 import { Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { type RootState } from "../store/store";
+import type { JSX } from "react";
 
-const AdminRoute: React.FC<{ children: React.JSX.Element }> = ({
-  children,
-}) => {
-  const { isAdmin, isLoggedIn, loading, initialized } = useAuth();
+export default function AdminRoute({ children }: { children: JSX.Element }) {
+  const { user, loading } = useSelector((state: RootState) => state.auth);
 
-  if (!initialized || loading) {
-    return <div>Loading...</div>;
-  }
+  if (loading) return <>Loading...</>;
 
-  // Not logged in → login
-  if (!isLoggedIn) {
-    return <Navigate to="/login" replace />;
-  }
+  if (!user) return <Navigate to="/login" replace />;
 
-  // Logged in but NOT admin → access denied page
-  if (!isAdmin) {
-    return <Navigate to="/not-authorized" replace />;
-  }
+  if (user.role !== "admin") return <Navigate to="/user" replace />;
 
   return children;
-};
-
-export default AdminRoute;
+}

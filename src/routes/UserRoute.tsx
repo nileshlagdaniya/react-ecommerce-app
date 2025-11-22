@@ -3,14 +3,14 @@ import { useSelector } from "react-redux";
 import { type RootState } from "../store/store";
 import type { JSX } from "react";
 
-export default function ProtectedRoute({
-  children,
-}: {
-  children: JSX.Element;
-}) {
+export default function UserRoute({ children }: { children: JSX.Element }) {
   const { user, loading } = useSelector((state: RootState) => state.auth);
 
   if (loading) return <>Loading...</>;
 
-  return user ? children : <Navigate to="/login" replace />;
+  if (!user) return <Navigate to="/login" replace />;
+
+  if (user.role !== "user") return <Navigate to="/admin" replace />;
+
+  return children;
 }

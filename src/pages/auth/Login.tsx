@@ -1,81 +1,106 @@
-import { useState } from "react";
-import { TextField, Button, Card, Typography } from "@mui/material";
-import { useAppDispatch } from "../../hooks/hooks";
-import { authService } from "../../services/authService";
-import { signInSuccess } from "../../features/auth/authSlice";
+import { loginUser } from "../../firebase/auth";
 import { useNavigate } from "react-router-dom";
+import AuthCard from "@/components/auth/AuthCard";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useState } from "react";
+import { toast } from "sonner";
 
-const Login = () => {
-  const dispatch = useAppDispatch();
+export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  const handleLogin = async (e: React.FormEvent) => {
+  async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
     setError("");
     setLoading(true);
-
     try {
-      const user = await authService.login(email, password);
-      dispatch(signInSuccess(user));
-      alert(`Login success!, ${user.email}, ${user.role}`);
-      if (user.role === "admin") {
-        navigate("/admin");
-      } else {
-        navigate("/dashboard");
-      }
+      const user = await loginUser(email, password);
+      toast.success("Login Successful!", {
+        description: "Welcome back!",
+      });
+      if (user) navigate("/user");
     } catch (err: any) {
       setError(err.message);
+      toast.error("Login Failed", {
+        description: err.message || "Something went wrong!",
+      });
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
-  };
+  }
 
   return (
-    <div className="w-full min-h-screen flex justify-center items-center p-4">
-      <Card className="max-w-md w-full p-6 rounded-2xl shadow-lg">
-        <Typography variant="h5" className="mb-4 text-center">
-          Login
-        </Typography>
-
-        {error && (
-          <p className="text-red-500 text-center mb-2 text-sm">{error}</p>
-        )}
-
-        <form onSubmit={handleLogin} className="space-y-4">
-          <TextField
-            fullWidth
-            label="Email"
-            variant="outlined"
+    <AuthCard
+      title="Welcome back"
+      description="Enter your credentials to access your dashboard"
+    >
+      <form onSubmit={handleLogin} className="space-y-6">
+        {/* Email */}
+        <div className="space-y-1.5">
+          <Label htmlFor="email">Email</Label>
+          <Input
+            id="email"
+            type="email"
+            placeholder="you@domain.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
+            className="h-12"
           />
+        </div>
 
-          <TextField
-            fullWidth
+        {/* Password */}
+        <div className="space-y-1.5">
+          <div className="flex justify-between items-center">
+            <Label htmlFor="password">Password</Label>
+
+            <button
+              type="button"
+              onClick={() => navigate("/forgot-password")}
+              className="text-sm text-primary hover:underline"
+            >
+              Forgot?
+            </button>
+          </div>
+
+          <Input
+            id="password"
             type="password"
-            label="Password"
-            variant="outlined"
+            placeholder="••••••••••••"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
+            className="h-12"
           />
+        </div>
+        {error}
 
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            disabled={loading}
+        {/* Login Button */}
+        <Button
+          disabled={loading}
+          type="submit"
+          className="w-full h-12 text-base font-semibold bg-primary text-primary-foreground hover:opacity-90"
+        >
+          Continue
+        </Button>
+
+        {/* Register Link */}
+        <p className="text-center text-sm pt-2">
+          <span className="text-muted-foreground">New here? </span>
+          <button
+            type="button"
+            onClick={() => navigate("/register")}
+            className="text-primary font-medium hover:underline"
           >
-            {loading ? "Logging in..." : "Login"}
-          </Button>
-        </form>
-      </Card>
-    </div>
+            Create an account
+          </button>
+        </p>
+      </form>
+    </AuthCard>
   );
-};
-
-export default Login;
+}
