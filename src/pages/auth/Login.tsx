@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { toast } from "sonner";
+import { getUserRole, setRoleClass } from "@/firebase";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -23,7 +24,18 @@ export default function Login() {
       toast.success("Login Successful!", {
         description: "Welcome back!",
       });
-      if (user) navigate("/user");
+      const role = user.role; // "admin" | "user" — Firebase se aayega
+
+      setRoleClass(role);
+      if (user) {
+        const role = await getUserRole(user.uid);
+
+        if (role === "admin") {
+          navigate("/admin");
+        } else {
+          navigate("/dashboard");
+        }
+      }
     } catch (err: any) {
       setError(err.message);
       toast.error("Login Failed", {

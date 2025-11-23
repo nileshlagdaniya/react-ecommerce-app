@@ -21,6 +21,23 @@ export async function getUser(uid: string) {
     return snap.exists() ? snap.data() : null;
 }
 
+export async function getUserRole(uid: string) {
+    const ref = doc(db, "users", uid);
+    const snap = await getDoc(ref);
+    if (snap.exists()) {
+        return snap.data().role || "user";
+    }
+    return "user";
+}
+export function setRoleClass(role: "admin" | "user") {
+    const html = document.documentElement;
+
+    // remove old role classes
+    html.classList.remove("admin", "user");
+
+    // add new
+    html.classList.add(role);
+}
 export async function updateUserRole(uid: string, role: "user" | "admin") {
     await updateDoc(doc(db, "users", uid), { role });
 }

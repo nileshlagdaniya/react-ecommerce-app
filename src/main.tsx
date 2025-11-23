@@ -6,12 +6,18 @@ import "./index.css";
 import App from "./App.tsx";
 import { Provider } from "react-redux";
 import { store } from "./store/store.ts";
+import { ThemeProvider } from "./components/theme/theme-provider.tsx";
+import { RoleProvider } from "./components/theme/RoleProvider.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <App />
+        <ThemeProvider>
+          <RoleProvider>
+            <App />
+          </RoleProvider>
+        </ThemeProvider>
       </BrowserRouter>
     </Provider>
   </StrictMode>

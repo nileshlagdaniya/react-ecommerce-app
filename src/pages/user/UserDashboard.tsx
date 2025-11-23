@@ -1,7 +1,7 @@
 const UserDashboard = () => {
   return (
-    <div className="bg-background text-text-primary min-h-screen p-8">
-      <h1 className="text-h1 font-heading font-bold bg-linear-to-r from-primary-600 to-accent-600 bg-clip-text text-transparent">
+    <div className="bg-background  min-h-screen p-8">
+      <h1 className="text-xl font-heading font-bold bg-linear-to-r from-primary to-accent bg-clip-text text-transparent">
         Premium Dashboard
       </h1>
 

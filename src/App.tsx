@@ -3,9 +3,10 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 
 import AdminRoute from "./routes/AdminRoute";
-import UserRoute from "./routes/UserRoute";
 
 import { Toaster } from "sonner";
+import AdminLayout from "./components/layout/AdminLayout";
+import UserLayout from "./components/layout/UserLayout";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
@@ -21,21 +22,18 @@ export default function App() {
         <Route path="/register" element={<Register />} />
 
         {/* USER */}
-        <Route
-          path="/user"
-          element={
-            <UserRoute>
-              <UserDashboard />
-            </UserRoute>
-          }
-        />
+        <Route element={<UserLayout />}>
+          <Route path="/dashboard" element={<UserDashboard />} />
+        </Route>
 
         {/* ADMIN */}
         <Route
           path="/admin"
           element={
             <AdminRoute>
-              <AdminDashboard />
+              <AdminLayout>
+                <AdminDashboard />
+              </AdminLayout>
             </AdminRoute>
           }
         />
