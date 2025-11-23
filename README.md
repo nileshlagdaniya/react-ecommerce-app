@@ -130,3 +130,205 @@ src/
 ├─ App.tsx
 └─ main.tsx (or index.tsx)      # app bootstrap
 ```
+
+```
+ecommerce-app/
+├── public/
+│   └── vite.svg
+├── src/
+│   ├── assets/                    # Images, fonts, icons
+│   │   ├── images/
+│   │   ├── icons/
+│   │   └── fonts/
+│   │
+│   ├── components/                # Reusable components
+│   │   ├── ui/                    # shadcn/ui components
+│   │   │   ├── button.tsx
+│   │   │   ├── input.tsx
+│   │   │   ├── card.tsx
+│   │   │   ├── dialog.tsx
+│   │   │   ├── dropdown-menu.tsx
+│   │   │   ├── toast.tsx
+│   │   │   └── ...
+│   │   │
+│   │   ├── common/                # Common reusable components
+│   │   │   ├── Header.tsx
+│   │   │   ├── Footer.tsx
+│   │   │   ├── Sidebar.tsx
+│   │   │   ├── Loader.tsx
+│   │   │   ├── ErrorBoundary.tsx
+│   │   │   ├── ProtectedRoute.tsx
+│   │   │   └── ThemeToggle.tsx
+│   │   │
+│   │   ├── layout/                # Layout components
+│   │   │   ├── MainLayout.tsx
+│   │   │   ├── AdminLayout.tsx
+│   │   │   ├── AuthLayout.tsx
+│   │   │   └── EmptyLayout.tsx
+│   │   │
+│   │   └── shared/                # Shared business components
+│   │       ├── ProductCard.tsx
+│   │       ├── CartItem.tsx
+│   │       ├── SearchBar.tsx
+│   │       ├── FilterSidebar.tsx
+│   │       └── Pagination.tsx
+│   │
+│   ├── features/                  # Feature-based modules (DRY approach)
+│   │   ├── auth/
+│   │   │   ├── components/
+│   │   │   │   ├── LoginForm.tsx
+│   │   │   │   ├── RegisterForm.tsx
+│   │   │   │   └── ForgotPasswordForm.tsx
+│   │   │   ├── hooks/
+│   │   │   │   └── useAuth.ts
+│   │   │   ├── services/
+│   │   │   │   └── authService.ts
+│   │   │   └── types/
+│   │   │       └── auth.types.ts
+│   │   │
+│   │   ├── products/
+│   │   │   ├── components/
+│   │   │   │   ├── ProductList.tsx
+│   │   │   │   ├── ProductDetail.tsx
+│   │   │   │   ├── ProductFilters.tsx
+│   │   │   │   └── ProductSearch.tsx
+│   │   │   ├── hooks/
+│   │   │   │   ├── useProducts.ts
+│   │   │   │   └── useProductFilters.ts
+│   │   │   ├── services/
+│   │   │   │   └── productService.ts
+│   │   │   └── types/
+│   │   │       └── product.types.ts
+│   │   │
+│   │   ├── cart/
+│   │   │   ├── components/
+│   │   │   │   ├── Cart.tsx
+│   │   │   │   ├── CartSummary.tsx
+│   │   │   │   └── MiniCart.tsx
+│   │   │   ├── hooks/
+│   │   │   │   └── useCart.ts
+│   │   │   └── types/
+│   │   │       └── cart.types.ts
+│   │   │
+│   │   ├── orders/
+│   │   │   ├── components/
+│   │   │   │   ├── OrderList.tsx
+│   │   │   │   ├── OrderDetail.tsx
+│   │   │   │   └── OrderTracking.tsx
+│   │   │   ├── hooks/
+│   │   │   │   └── useOrders.ts
+│   │   │   ├── services/
+│   │   │   │   └── orderService.ts
+│   │   │   └── types/
+│   │   │       └── order.types.ts
+│   │   │
+│   │   ├── wishlist/
+│   │   │   ├── components/
+│   │   │   │   └── Wishlist.tsx
+│   │   │   ├── hooks/
+│   │   │   │   └── useWishlist.ts
+│   │   │   └── types/
+│   │   │       └── wishlist.types.ts
+│   │   │
+│   │   ├── admin/
+│   │   │   ├── components/
+│   │   │   │   ├── Dashboard.tsx
+│   │   │   │   ├── ProductManagement.tsx
+│   │   │   │   ├── OrderManagement.tsx
+│   │   │   │   ├── UserManagement.tsx
+│   │   │   │   └── Analytics.tsx
+│   │   │   ├── hooks/
+│   │   │   │   └── useAdminStats.ts
+│   │   │   └── types/
+│   │   │       └── admin.types.ts
+│   │   │
+│   │   └── user/
+│   │       ├── components/
+│   │       │   ├── Profile.tsx
+│   │       │   ├── AddressBook.tsx
+│   │       │   └── AccountSettings.tsx
+│   │       ├── hooks/
+│   │       │   └── useProfile.ts
+│   │       └── types/
+│   │           └── user.types.ts
+│   │
+│   ├── pages/                     # Page components
+│   │   ├── Home.tsx
+│   │   ├── Products.tsx
+│   │   ├── ProductDetail.tsx
+│   │   ├── Cart.tsx
+│   │   ├── Checkout.tsx
+│   │   ├── OrderSuccess.tsx
+│   │   ├── Profile.tsx
+│   │   ├── Orders.tsx
+│   │   ├── Wishlist.tsx
+│   │   ├── Login.tsx
+│   │   ├── Register.tsx
+│   │   ├── NotFound.tsx
+│   │   └── admin/
+│   │       ├── Dashboard.tsx
+│   │       ├── Products.tsx
+│   │       ├── Orders.tsx
+│   │       └── Users.tsx
+│   │
+│   ├── store/                     # Redux store
+│   │   ├── index.ts               # Store configuration
+│   │   ├── hooks.ts               # Typed hooks (useAppDispatch, useAppSelector)
+│   │   └── slices/
+│   │       ├── authSlice.ts
+│   │       ├── cartSlice.ts
+│   │       ├── productSlice.ts
+│   │       ├── wishlistSlice.ts
+│   │       └── uiSlice.ts         # Theme, modals, toasts
+│   │
+│   ├── hooks/                     # Global custom hooks
+│   │   ├── useDebounce.ts
+│   │   ├── useLocalStorage.ts
+│   │   ├── useMediaQuery.ts
+│   │   ├── useClickOutside.ts
+│   │   └── useInfiniteScroll.ts
+│   │
+│   ├── services/                  # API services
+│   │   ├── api.ts                 # Axios instance
+│   │   ├── firebase.ts            # Firebase config
+│   │   └── queryClient.ts         # React Query config
+│   │
+│   ├── utils/                     # Utility functions
+│   │   ├── cn.ts                  # classNames utility (clsx + tailwind-merge)
+│   │   ├── formatters.ts          # Date, currency formatters
+│   │   ├── validators.ts          # Zod schemas
+│   │   ├── constants.ts           # App constants
+│   │   └── helpers.ts             # General helpers
+│   │
+│   ├── types/                     # Global TypeScript types
+│   │   ├── index.ts
+│   │   ├── common.types.ts
+│   │   └── api.types.ts
+│   │
+│   ├── routes/                    # Route configuration
+│   │   ├── index.tsx              # Main routes
+│   │   ├── adminRoutes.tsx
+│   │   └── userRoutes.tsx
+│   │
+│   ├── config/                    # Configuration files
+│   │   ├── firebase.config.ts
+│   │   ├── stripe.config.ts
+│   │   └── app.config.ts
+│   │
+│   ├── App.tsx                    # Root component
+│   ├── main.tsx                   # Entry point
+│   ├── index.css                  # Global styles + Tailwind
+│   └── vite-env.d.ts
+│
+├── .env.example
+├── .env.local
+├── .gitignore
+├── package.json
+├── tsconfig.json
+├── tsconfig.node.json
+├── vite.config.ts
+├── tailwind.config.js
+├── postcss.config.js
+├── components.json              # shadcn/ui config
+└── README.md
+```

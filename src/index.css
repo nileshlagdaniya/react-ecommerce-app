@@ -1,1 +1,109 @@
-@import "tailwindcss"
+@import "tailwindcss";
+
+/* --------------------------------------------------
+   GLOBAL THEME TOKENS (DEFAULT: USER LIGHT)
+-------------------------------------------------- */
+@theme {
+  --color-background: #F9FAFB;
+  --color-foreground: #111827;
+
+  --color-card: #FFFFFF;
+  --color-card-foreground: #111827;
+
+  --color-primary: #6366F1;
+  --color-primary-foreground: #FFFFFF;
+
+  --color-secondary: #14B8A6;
+  --color-secondary-foreground: #FFFFFF;
+
+  --color-accent: #F97316;
+  --color-accent-foreground: #FFFFFF;
+
+  --color-muted: #F3F4F6;
+  --color-muted-foreground: #6B7280;
+
+  --color-border: #E5E7EB;
+  --color-input: #E5E7EB;
+
+  --color-destructive: #EF4444;
+  --color-destructive-foreground: #FFFFFF;
+
+  --radius: 0.75rem;
+  /* Shadcn compliant */
+  --radius-lg: 1rem;
+  --radius-full: 9999px;
+}
+
+/* --------------------------------------------------
+   DARK MODE (USER DARK)
+-------------------------------------------------- */
+@layer base {
+  .dark {
+    --color-background: #0F172A;
+    --color-foreground: #F8FAFC;
+
+    --color-card: #1E293B;
+    --color-card-foreground: #F8FAFC;
+
+    --color-primary: #818CF8;
+    --color-secondary: #2DD4BF;
+    --color-accent: #FB923C;
+
+    --color-border: #334155;
+    --color-input: #334155;
+
+    --color-muted: #1E293B;
+    --color-muted-foreground: #94A3B8;
+
+    --color-destructive: #F87171;
+  }
+}
+
+/* --------------------------------------------------
+   ADMIN THEME (LIGHT)
+-------------------------------------------------- */
+@layer base {
+  .admin {
+    --color-primary: #3B82F6;
+    --color-primary-foreground: #FFFFFF;
+
+    --color-secondary: #64748B;
+    --color-accent: #A855F7;
+  }
+
+  .admin.dark {
+    --color-primary: #60A5FA;
+    --color-secondary: #94A3B8;
+    --color-accent: #C084FC;
+  }
+}
+
+/* --------------------------------------------------
+   USER THEME (FORCE RESET IF NEEDED)
+-------------------------------------------------- */
+@layer base {
+  .user {
+    --color-primary: #6366F1;
+    --color-secondary: #14B8A6;
+    --color-accent: #F97316;
+  }
+
+  .user.dark {
+    --color-primary: #818CF8;
+    --color-secondary: #2DD4BF;
+    --color-accent: #FB923C;
+  }
+}
+
+/* --------------------------------------------------
+   SHADCN OVERRIDES FOR TAILWIND v4
+-------------------------------------------------- */
+@layer base {
+  :root {
+    --radius: 0.75rem;
+  }
+
+  * {
+    border-color: var(--color-border);
+  }
+}
